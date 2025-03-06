@@ -1,0 +1,43 @@
+
+<div class="container">
+  <div class="card-product">
+  <img src= poster_url: "https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg />
+  <div class="card-product-infos">
+    <h2>Harry</h2>
+    <p>Product description with <strong>relevant info</strong> only.</p>
+  </div>
+</div>
+
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <div class="form-group">
+    <%= f.association :movie, label: "Choisissez un film :", prompt: "Sélectionnez un film" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :comment, label: "Ajoutez un commentaire :" %>
+  </div>
+
+  <%= f.submit "Ajouter ce film", class: "btn btn-primary" %>
+<% end %>
+
+
+<h2>Films dans cette liste :</h2>
+<ul class="list-group">
+  <% if @list.bookmarks.any? %>
+    <% @list.bookmarks.each do |bookmark| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong><%= bookmark.movie.title %></strong>
+          <p><%= bookmark.comment %></p>
+        </div>
+        <%= link_to "Supprimer", list_path(@list), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Es-tu sûre ?" }, class: "btn btn-danger btn-sm" %>
+      </li>
+    <% end %>
+  <% else %>
+    <p>Aucun film dans cette liste pour l’instant.</p>
+  <% end %>
+</ul>
+ <%= link_to "Back to list", lists_path, class: 'btn btn-primary' %>
+
+
+</div>
