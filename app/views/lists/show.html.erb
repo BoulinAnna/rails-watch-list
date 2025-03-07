@@ -1,10 +1,8 @@
 
 <div class="container">
-  <div class="card-product">
-  <img src= poster_url: "https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg />
-  <div class="card-product-infos">
-    <h2>Harry</h2>
-    <p>Product description with <strong>relevant info</strong> only.</p>
+ <div class="banner" style="background-image:url(<%= asset_path('banner.jpg') %>);">
+  <div class="container">
+    <h1>YOUR MOVIES SELCTION FOR THE LIST <strong><%= @list.name.upcase %> </strong></h1>
   </div>
 </div>
 
@@ -13,13 +11,11 @@
     <%= f.association :movie, label: "Choisissez un film :", prompt: "Sélectionnez un film" %>
   </div>
 
-  <div class="form-group">
-    <%= f.input :comment, label: "Ajoutez un commentaire :" %>
-  </div>
-
-  <%= f.submit "Ajouter ce film", class: "btn btn-primary" %>
-<% end %>
-
+    <div class="form-group">
+      <%= f.input :comment, label: "Ajoutez un commentaire :" %>
+    </div>
+    <%= f.submit "Ajouter ce film", class: "btn btn-primary" %>
+  <% end %>
 
 <h2>Films dans cette liste :</h2>
 <ul class="list-group">
@@ -30,7 +26,7 @@
           <strong><%= bookmark.movie.title %></strong>
           <p><%= bookmark.comment %></p>
         </div>
-        <%= link_to "Supprimer", list_path(@list), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Es-tu sûre ?" }, class: "btn btn-danger btn-sm" %>
+        <%= link_to "Supprimer", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Es-tu sûre ?" }, class: "btn btn-danger btn-sm" %>
       </li>
     <% end %>
   <% else %>
@@ -38,6 +34,4 @@
   <% end %>
 </ul>
  <%= link_to "Back to list", lists_path, class: 'btn btn-primary' %>
-
-
-</div>
+  </div>
